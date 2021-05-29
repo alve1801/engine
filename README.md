@@ -4,7 +4,7 @@ I've been using the [OneLoneCoder Pixel Game Engine](https://github.com/OneLoneC
 
 Like the original OLCPGE, it is implemented as a single header file that you include in your project and supply with a loop function. The `font` file is a binary-encoded copy of codepage 437 used for text display (I haven't come up with an efficient way to hardcode it).
 
-`main.cpp` and `Makefile` are for a quick demo I threw together to exemplify how it works (I didn't include an image for testing that, but it works).
+`main.cpp` and `Makefile` are for a quick squaremuncher demo I threw together to exemplify how it works.
 
 Requires SDL2.
 
