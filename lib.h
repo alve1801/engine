@@ -3,7 +3,7 @@
 #define _max(x,y) ((x)>(y)?(x):(y))
 
 int mod(int a,int b){a%=b;return(a>=0?a:b+a);}
-int mdiv(int a,int b){return a/b-(a<0);}
+int mdiv(int a,int b){return (a+(a<0))/b-(a<0);}
 
 const char fontdata[]="@@@@@@@@@@@@@@@@GN8A:E8A?O=K?OGNGN?O=K?O?O>G?OGNFL?N?N?NGLCHA@@@A@CHGL?NGLCHA@@@A@CHCH?N>N>NA@GLA@CHGL?N?NGLA@GL@@@@CLGNGNCL@@@@?O?O<C8A8A<C?O?O@@CHGLDDDDGLCH@@?O<G8C;K;K8C<G?OCN@NCJGH<L<L<LGHCLFFFFFFCLAHGNAHCOCCCOC@C@G@?@>@GOFCGOFCFCFG>F<@AH=KCL>G>GCL=KAHD@G@GLGOGLG@D@@@@B@NCN?NCN@N@B@@AHCLGNAHAHGNCLAHFFFFFFFFFF@@FF@@GO=K=KGKAKAKAK@@CLFFCHFLFLCH<LGH@@@@@@@@GNGNGN@@AHCLGNAHGNCLAHGNAHCLGNAHAHAHAH@@AHAHAHAHGNCLAH@@@@AH@L?N@LAH@@@@@@C@F@?NF@C@@@@@@@@@<@<@<@?N@@@@@@BDFF?OFFBD@@@@A@A@CHCHGLGL?N@@@@?NGLGLCHCHA@A@@@@@@@@@@@@@@@@@AHCLCLAHAH@@AH@@FLFLBH@@@@@@@@@@FLFL?NFL?NFLFL@@AHCNF@CL@FGLAH@@@@<F<LAHC@FF<F@@CHFLFLCIFNFFCK@@C@C@F@@@@@@@@@@@@LAHC@C@C@AH@L@@C@AH@L@L@LAHC@@@@@FFCL?OCLFF@@@@@@AHAHGNAHAH@@@@@@@@@@@@@@CHCHF@@@@@@@GN@@@@@@@@@@@@@@@@@@C@C@@@@F@LAHC@F@<@8@@@GL<F<N=N?F>FGL@@@HAHGHAHAHAHGN@@CLFF@FALC@FFGN@@CLFF@FAL@FFFCL@@ALCLFL<L?N@LAN@@GNF@F@GL@FFFCL@@ALC@F@GLFFFFCL@@GNFF@F@LAHAHAH@@CLFFGFCLFNFFCL@@CLFFFFCN@F@LCH@@@@@@C@C@@@C@C@@@@@@@C@C@@@G@C@F@@F@LAHC@AH@L@F@@@@@@GN@@GN@@@@@@F@C@AH@LAHC@F@@@CLFF@F@LAH@@AH@@GL<F=N=N=N<@GL@@AHCLFFFFGNFFFF@@?LFFFFGLFFFF?L@@CLFF<@<@<@FFCL@@?HFLFFFFFFFL?H@@?NFBFHGHFHFB?N@@?NFBFHGHFHF@?@@@CLFF<@<@<NFFCN@@FFFFFFGNFFFFFF@@CLAHAHAHAHAHCL@@AN@L@L@L<L<LGH@@>FFFFLGHFLFF>F@@?@F@F@F@FBFF?N@@<F>N?N=F<F<F<F@@<F>F?F=N<N<F<F@@CHFL<F<F<FFLCH@@?LFFFFGLF@F@?@@@CLFFFFFFFNCL@N@@?LFFFFGLFLFF>F@@CLFFF@CL@NFFCL@@GNEJAHAHAHAHCL@@FFFFFFFFFFFFCL@@FFFFFFFFFFCLAH@@<F<F<F=F?NFLFL@@FFFFCLAHCLFFFF@@FFFFFFCLAHAHCL@@?N<L9HC@FB<F?N@@CLC@C@C@C@C@CL@@<@F@C@AH@L@F@B@@CL@L@L@L@L@LCL@@A@CHFL<F@@@@@@@@@@@@@@@@@@@@?O@@C@C@AH@@@@@@@@@@@@@@GH@LGL<LGF@@>@F@GLFFFFFF=L@@@@@@CLFFF@FFCL@@AL@LGL<L<L<LGF@@@@@@CLFFGNF@CL@@ALCFC@GLC@C@GH@@@@@@GF<L<LGL@L?H>@F@FLGFFFFF>F@@AH@@CHAHAHAHCL@@@L@@CL@L@L@L<LGH>@F@FFFLGHFL>F@@GHAHAHAHAHAHGN@@@@@@>L?N=F=F<F@@@@@@GLFFFFFFFF@@@@@@CLFFFFFFCL@@@@@@=LFFFFGLF@?@@@@@GF<L<LGL@LAN@@@@>LGFFFF@?@@@@@@@CNF@CL@FGL@@A@C@GNC@C@CFAL@@@@@@<L<L<L<LGF@@@@@@FFFFFFCLAH@@@@@@<F<F=F?NFL@@@@@@<FFLCHFL<F@@@@@@FFFFFFCN@FGL@@@@GNDLAHCBGN@@@NAHAHG@AHAH@N@@AHAHAH@@AHAHAH@@G@AHAH@NAHAHG@@@GF=L@@@@@@@@@@@@@@A@CHFL<F<F?N@@CLFF<@<@FFCLAHG@@@<L@@<L<L<LGF@@@NAHCLFFGNF@CL@@GN<CCL@FCNFFCK@@<L@@GH@LGL<LGF@@>@C@GH@LGL<LGF@@AHBDGH@LGL<LGF@@@@CLFFF@FFCLAHG@GN<CCLFFGNF@CL@@FF@@CLFFGNF@CL@@G@AHCLFFGNF@CL@@FF@@CHAHAHAHCL@@GL<FCHAHAHAHCL@@G@AHCHAHAHAHCL@@FFAHCLFFFFGNFF@@AHBDCLFFFFGNFF@@ALC@GLF@GHF@GL@@@@@@?NAKGO=H>O@@AOCLFLGOFLFLFO@@CLFF@@CLFFFFCL@@@@FF@@CLFFFFCL@@G@AH@@CLFFFFCL@@GH<L@@<L<L<LGF@@>@C@@@<L<L<LGF@@@@FF@@FFFFCN@FGL<FCHFL<F<FFLCH@@FF@@FFFFFFFFCL@@AHAHGN<@<@GNAHAHCLFFF@?HF@<@?N@@FFFFCLGNAHGNAH@@?@8H8H?@8H9L8H@N@NAKAHGNAHAH=HG@ALC@GH@LGL<LGF@@ALC@CHAHAHAHCL@@@NAH@@CLFFFFCL@@ALC@@@<L<L<LGF@@@@CFFLGLFFFFFF@@CFFLFFGFGNFNFF@@CLFLFLCN@@GN@@@@CLFFFFCL@@GN@@@@AH@@AHC@F@FFCL@@@@@@@@GNF@F@@@@@@@@@@@GN@F@F@@@@<F<L=HCNFC<F8LAO<F<L=H?CFG<K9O@C@@AH@@AHAHCLCLAH@@CCFF<LFFCC@@@@@@<LFFCCFF<L@@@@BB8HBB8HBB8HBB8HEE:JEE:JEE:JEE:J=MGG=MGG=MGG=MGGAHAHAHAHAHAHAHAHAHAHAHAH?HAHAHAHAHAH?HAH?HAHAHAHCFCFCFCF?FCFCFCF@@@@@@@@?NCFCFCF@@@@?HAH?HAHAHAHCFCF?F@F?FCFCFCFCFCFCFCFCFCFCFCF@@@@?N@F?FCFCFCFCFCF?F@F?N@@@@@@CFCFCFCF?N@@@@@@AHAH?HAH?H@@@@@@@@@@@@@@?HAHAHAHAHAHAHAHAO@@@@@@AHAHAHAH?O@@@@@@@@@@@@@@?OAHAHAHAHAHAHAHAOAHAHAH@@@@@@@@?O@@@@@@AHAHAHAH?OAHAHAHAHAHAOAHAOAHAHAHCFCFCFCFCGCFCFCFCFCFCGC@CO@@@@@@@@@@COC@CGCFCFCFCFCF?G@@?O@@@@@@@@@@?O@@?GCFCFCFCFCFCGC@CGCFCFCF@@@@?O@@?O@@@@@@CFCF?G@@?GCFCFCFAHAH?O@@?O@@@@@@CFCFCFCF?O@@@@@@@@@@?O@@?OAHAHAH@@@@@@@@?OCFCFCFCFCFCFCFCO@@@@@@AHAHAOAHAO@@@@@@@@@@AOAHAOAHAHAH@@@@@@@@COCFCFCFCFCFCFCF?GCFCFCFAHAH?O@@?OAHAHAHAHAHAHAH?H@@@@@@@@@@@@@@AOAHAHAH?O?O?O?O?O?O?O?O@@@@@@@@?O?O?O?O?@?@?@?@?@?@?@?@@O@O@O@O@O@O@O@O?O?O?O?O@@@@@@@@@@@@GF=L<H=LGF@@@@CLFFFLFFGLF@C@@@GNFFF@F@F@F@@@@@?NFLFLFLFLFF@@GNFFC@AHC@FFGN@@@@@@GN<H<L<LGH@@@@FFFFFFFFGKF@<@@@GF=LAHAHAH@N@@GNAHCLFFFFCLAHGNCLFFFFGNFFFFCL@@GL<F<F<FFLFL>N@@ANC@AHCLFFFFCL@@@@@@GF=K=KFN@@@@@F@LGN=K=KGNF@<@ANC@F@GNF@C@AN@@@@CLFFFFFFFFFF@@@@GN@@GN@@GN@@@@AHAHGNAHAH@@GN@@C@AH@LAHC@@@GN@@@LAHC@AH@L@@GN@@@NAKAKAHAHAHAHAHAHAHAHAHAH=H=HG@AHAH@@GN@@AHAH@@@@GB9L@@GB9L@@@@CHFLFLCH@@@@@@@@@@@@@@AHAH@@@@@@@@@@@@@@AH@@@@@@@G@D@DDDFDCDAL@LFLCFCFCFCF@@@@@@GH@LAHC@GL@@@@@@@@@@CLCLCLCL@@@@CLFF<C=K=K<CFFCL";
 
@@ -56,7 +56,7 @@ struct Framework{
 	clock_t timeframe,currentframe;
 	bool(*userfunc)(Framework*);
 	bool keypress; // XXX tells us whether a new key was pressed last frame - please figure out a better way to handle this
-	char key; // what key was pressed
+	char key; // what key was pressed XXX make this an int, bc some are not ascii
 	struct{
 		bool left,right;
 		int x=0,y=0;
@@ -101,7 +101,6 @@ struct Framework{
 			audio.want.format = AUDIO_U8;
 			audio.want.channels = 1;
 			audio.want.samples = 512;
-
 			audio.want.callback = &audiowrapper;
 			audio.want.userdata = &(this->audio);
 			audio.dev = SDL_OpenAudioDevice(0,0,&audio.want,0,SDL_AUDIO_ALLOW_FORMAT_CHANGE); // actually, we dont rlly want to allow any change...
@@ -119,6 +118,8 @@ struct Framework{
 		SDL_Quit();
 	}
 
+	void clear(short c=0){for(int i=0;i<_sx*_sy;i++)newmap[i]=c;}
+
 	//void p(short c,int x,int y){newmap[y*_sx+x]=c;}
 
 	void p(unsigned short c,int x,int y){
@@ -127,16 +128,14 @@ struct Framework{
 		short n=newmap[y*_sx+x];
 		char a=c>>12,r,g,b;
 		if(a==0xf)return;
-		if(a==0){newmap[y*_sx+x]=c;return;} // XXX this is kinda useless
+		if(a==0){newmap[y*_sx+x]=c;return;} // XXX skip calculating the exact value. not sure if it helps tho.
 
 		r=((n&0xf00)>>8)*a + ((c&0xf00)>>8)*(0xf-a);
 		g=((n&0x0f0)>>4)*a + ((c&0x0f0)>>4)*(0xf-a);
 		b=((n&0x00f)   )*a + ((c&0x00f)   )*(0xf-a);
 
 		r/=0xf,g/=0xf,b/=0xf;
-
 		newmap[y*_sx+x]=(r<<8)|(g<<4)|b;
-
 	}
 
 	void pc(char c,int cx,int cy,short fgc=0xfff,short bgc=0){
@@ -148,8 +147,7 @@ struct Framework{
 		int x=0,y=0;
 		for(int i=0;c[i];i++){
 			pc(c[i]==10?0:c[i],sx+x++,sy+y,fgc,bgc);
-			if(sx+x==_sx||c[i]==10)
-				x=0,y++;
+			if(sx+x==_sx||c[i]==10)x=0,y++;
 		}
 	}
 
@@ -176,9 +174,39 @@ struct Framework{
 		p(img[y*sx+x],cx+x,cy+y);
 	}
 
+	// the following are utility and not necessary, remove them for the 1173 version
+
+	void line(unsigned short c,int x1,int x2,int y1,int y2){
+		int x,y,i;
+		float d=abs(abs(x1-x2)>abs(y1-y2)?x1-x2:y1-y2);
+		for(i=0;i<(int)d;i++){
+			x=(int)((x1*i+x2*(d-i))/d);
+			y=(int)((y1*i+y2*(d-i))/d);
+			p(c,x,y);
+		}
+	}
+
 	void pi(img a,int cx,int cy){pi(a.data,cx,cy,a.sx,a.sy);}
 
-	void clear(){for(int i=0;i<_sx*_sy;i++)newmap[i]=0;}
+	/* XXX not sure if i like defining start+offset instead of start+end...
+	da c2 c4 bf
+	c3 c5    b4
+	b3
+	c0 c1    d9
+	*/
+
+	void phl(int sx,int y,int ex,short fgc=0xfff,short bgc=0){for(int x=sx;x<sx+ex;x++)pc(0xc4,x,y,fgc,bgc);}
+
+	void pvl(int x,int sy,int ey,short fgc=0xfff,short bgc=0){for(int y=sy;y<sy+ey;y++)pc(0xb3,x,y,fgc,bgc);}
+
+	void pbox(int sx,int sy,int ex=1,int ey=1,short fgc=0xfff,short bgc=0){
+		pc(0xda,sx -1,sy -1,fgc,bgc),
+		pc(0xbf,sx+ex,sy -1,fgc,bgc),
+		pc(0xc0,sx -1,sy+ey,fgc,bgc),
+		pc(0xd9,sx+ex,sy+ey,fgc,bgc);
+		phl(sx,sy-1,ex,fgc,bgc),phl(sx,sy+ey,ex,fgc,bgc);
+		pvl(sx-1,sy,ey,fgc,bgc),pvl(sx+ex,sy,ey,fgc,bgc);
+	}
 
 	void snap(){
 		FILE*f=fopen("snap.ppm","w");
@@ -190,6 +218,8 @@ struct Framework{
 		fclose(f);
 		printf("Screenshot taken.\n");
 	}
+
+	// end 1173
 
 	//bool operator[](char c){return SDL_GetKeyboardState(NULL)[c];}
 
@@ -209,7 +239,8 @@ struct Framework{
 				int r = (color&0x0f00)>>4;
 				int g = (color&0x00f0);
 				int b = (color&0x000f)<<4;
-				r=r|r>>4;g=g|g>>4;b=b|b>>4;
+				//r=r|r>>4;g=g|g>>4;b=b|b>>4;
+				r*=0x11,g*=0x11,b*=0x11; // dont think this is much faster tbh
 
 				SDL_SetRenderDrawColor(renderer,r,g,b,255);
 				for(int scx=0;scx<_ss;scx++)
@@ -248,12 +279,25 @@ struct Framework{
 				}
 				if(event.type==SDL_QUIT)return;
 			}
+			// XXX consider flushing events after this, so we dont hang as much
+			// alternatively, use a while instead of an if (which basically means that only the last one will get processed)
 		}
 	}
 
 };
 
 /*
+keys
+	key update
+	keysym
+	plz make an enum for checking, this is currently a nightmare
+	modifiers (shift ctrl alt etc)
+fix delay
+optional sound
+
 bool mouse_left_isheld(){return SDL_GetMouseState(0,0)&SDL_BUTTON(SDL_BUTTON_LEFT);}
 SDL_GetKeyboardState(NULL)[SDL_SCANCODE_LSHIFT]
+
+transparency?
+	for backwards compatibility, invert the alpha channel
 */
