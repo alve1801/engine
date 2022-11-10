@@ -1,5 +1,6 @@
 # engine
-A game engine I use for stuff
+A game engine I use for graphics n I/O
+
 I've been using the [OneLoneCoder Pixel Game Engine](https://github.com/OneLoneCoder/olcPixelGameEngine) for a lot of my projects, until it one day crashed my computer because of its terrible performance (pretty good engine altogether, I might have been overusing it). That is when I set out to make my own graphics engine, since I really didn't need a lot.
 
 Like the original OLCPGE, it is implemented as a single header file that you include in your project and supply with a loop function. The font used is an encoded version of codepage 437, compressed into a string and loaded into memory at initialization.
