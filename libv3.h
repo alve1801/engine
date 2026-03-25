@@ -10,25 +10,25 @@
 #define min(x,y) ((x)<(y)?(x):(y))
 #undef mod
 
-#define color unsigned short // aka uint16_t
+#define _color unsigned short // aka uint16_t
 
 int mod(int a,int b){if(b==0)return 0;a%=b;return(a>=0?a:b+a);}
 int mdiv(int a,int b){if(b==0)return 0;return (a+(a<0))/b-(a<0);}
 
 struct img{ // ppm format (ppm pgm pbm)
-	int sx=0,sy=0;color*data=0;
+	int sx=0,sy=0;_color*data=0;
 	img():sx(0),sy(0),data(0){} ~img(){if(data){free(data);data=0;}}
-	img(int x,int y,color*d=0):sx(x),sy(y){if(d)data=d;else
-		data=(color*)malloc(x*y*sizeof(color));}
+	img(int x,int y,_color*d=0):sx(x),sy(y){if(d)data=d;else
+		data=(_color*)malloc(x*y*sizeof(_color));}
 	img(const char*filename){load(filename);}
 	// and, because stdlib suck ass
 	img(const img&a){cpy(a);}img operator=(const img&a){cpy(a);return*this;}
 	void cpy(const img&a){sx=a.sx,sy=a.sy;
-		data=(color*)malloc(sx*sy*sizeof(color));
+		data=(_color*)malloc(sx*sy*sizeof(_color));
 		for(int i=0;i<sx*sy;i++)data[i]=a.data[i];}
-	color&operator[](int i){return data[i];}
-	color&at(int x,int y){return data[y*sx+x];}
-	void clear(color c=0){for(int i=0;i<sx*sy;i++)data[i]=c;}
+	_color&operator[](int i){return data[i];}
+	_color&at(int x,int y){return data[mod(y,sy)*sx+mod(x,sx)];}
+	void clear(_color c=0){for(int i=0;i<sx*sy;i++)data[i]=c;}
 	void save(const char*filename){
 		FILE*f=fopen(filename,"w");
 		fprintf(f,"P6\n%i %i\n255\n",sx,sy);
@@ -43,7 +43,7 @@ struct img{ // ppm format (ppm pgm pbm)
 		for(int i=0;i<3;i++)getc(f); // P6\n
 		while((a=getc(f))!=' ')sx=sx*10+a-48; // <X> 
 		while((a=getc(f))!=10)sy=sy*10+a-48; // <Y>\n
-		data=(color*)malloc(sx*sy*sizeof(color));
+		data=(_color*)malloc(sx*sy*sizeof(_color));
 		while((a=getc(f))!=10); // 255\n
 		for(int i=0;i<sx*sy;i++)
 			data[i]=(getc(f)>>4)<<8|(getc(f)>>4)<<4|(getc(f)>>4)<<0;
@@ -79,7 +79,7 @@ struct Framework{
 	}
 
 	SDL_Window*window;SDL_Renderer*renderer;SDL_Event event;
-	SDL_Texture*texture;color*newmap;
+	SDL_Texture*texture;_color*newmap;
 
 	Framework(int x,int y,int s=1,unsigned char(*ostfunk)(int)=0)
 	:_sx(x),_sy(y),_ss(s>0?s:1),userfunc(0){
@@ -89,7 +89,7 @@ struct Framework{
 		for(int i=0;i<192;i++)midfont[i]=
 			(midfontdata[2*i]<<4)|(midfontdata[2*i+1]-'@');
 
-		SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
+		SDL_Init(SDL_INIT_VIDEO|(ostfunk?SDL_INIT_AUDIO:0));
 		SDL_CreateWindowAndRenderer(_sx*_ss,_sy*_ss,0,&window,&renderer);
 		SDL_RenderSetScale(renderer,s,s);
 		SDL_SetRenderDrawColor(renderer,0,0,0,255); // not really necessary
@@ -123,17 +123,18 @@ struct Framework{
 	}
 
 	// is there an sdl routine we could use for this?
-	void clear(color c=0){for(int i=0;i<_sx*_sy;i++)newmap[i]=c|0xf000;}
+	void clear(_color c=0){for(int i=0;i<_sx*_sy;i++)newmap[i]=c|0xf000;}
 
-	color transparent=0xf000;
+	_color transparent=0xf000;
 
-	void p(color c,int x,int y){
-		if(x<0||y<0||x>=_sx||y>=_sy||c==transparent)return;
+	void p(_color c,int x,int y){
+		if(x<0||y<0||x>=_sx||y>=_sy||c==transparent) return;
+		newmap[y*_sx+x]=c|0xf000; return; // fuck the new alpha channel
 		char alpha=0xf-(c>>12); // XXX blending must happen here
 		newmap[y*_sx+x]=(c&0xfff)|(alpha<<12);
 	}
 
-	void pc(char c,int cx,int cy,color fgc=0xfff,color bgc=0,bool abs=0){
+	void pc(char c,int cx,int cy,_color fgc=0xfff,_color bgc=0,bool abs=0){
 		if(!abs)cx*=8,cy*=8;
 		if(c)for(int x=0;x<8;x++)for(int y=0;y<8;y++)
 		p(((char)font[(unsigned char)c*8+y]&(char)(128>>x))?fgc:bgc,cx+x,cy+y);
@@ -149,7 +150,7 @@ struct Framework{
 		}return l;
 	}
 
-	int ps(const char*c,int sx,int sy,color fgc=0xfff,color bgc=0,bool abs=0){
+	int ps(const char*c,int sx,int sy,_color fgc=0xfff,_color bgc=0,bool abs=0){
 		int x=0,y=0,l=0;
 		for(int i=0;c[i];i++){l++;
 			if(c[i]==9)x=((x>>3)+1)<<3;else
@@ -159,7 +160,7 @@ struct Framework{
 		}return l;
 	}
 
-	int pcm(char c,int cx,int cy,color fgc=0xfff,color bgc=0){
+	int pcm(char c,int cx,int cy,_color fgc=0xfff,_color bgc=0){
 		if(c<32||c>127)return 0;c-=32;
 		int s=minifont[(int)c+1]-minifont[(int)c],i=minifont[(int)c]*5;
 		if(s<0)return 0; // temp
@@ -169,7 +170,7 @@ struct Framework{
 		}return s;
 	}
 
-	int psm(const char*c,int cx,int cy,color fgc=0xfff,color bgc=0){
+	int psm(const char*c,int cx,int cy,_color fgc=0xfff,_color bgc=0){
 		int x=0,y=0,i=0;
 		for(;c[i];i++){
 			if(c[i]==10)x=0,y+=6;
@@ -177,14 +178,14 @@ struct Framework{
 		}return i; // or width? then, measured how?
 	}
 
-	void pcmid(char c,int cx,int cy,color fgc=0xfff,color bgc=0){
+	void pcmid(char c,int cx,int cy,_color fgc=0xfff,_color bgc=0){
 		if(c<32||c>127)return;c-=32; // cant predouble c bc signed
 		for(int i=0;i<8;i++)
 		p(midfont[2*c  ]&(128>>i)?fgc:bgc,cx+(i%4),cy+i/4  ),
 		p(midfont[2*c+1]&(128>>i)?fgc:bgc,cx+(i%4),cy+i/4+2);
 	}
 
-	int psmid(const char*c,int cx,int cy,color fgc=0xfff,color bgc=0){
+	int psmid(const char*c,int cx,int cy,_color fgc=0xfff,_color bgc=0){
 		int x=0,y=0,i=0;
 		for(;c[i];i++){
 			if(c[i]==10)x=0,y+=4;
@@ -197,25 +198,26 @@ struct Framework{
 	// recurses if not 0
 	// displays result of recursion %10
 	// returns input/10
-	int pi(int i,int sx,int sy,color fgc=0xfff,color bgc=0){
+	int pi(int i,int sx,int sy,_color fgc=0xfff,_color bgc=0,bool abs=0){
 		// returns length of number
 		// somewhat different approach than what we're used to
-		if(!i){pc('0',sx,sy,fgc,bgc);return 1;}
+		if(!i){pc('0',sx,sy,fgc,bgc,abs);return 1;}
 		if(i<0){
-			pc('-',sx,sy,fgc,bgc);
-			return pi(-1*i,sx+1,sy,fgc,bgc)+1;
+			pc('-',sx,sy,fgc,bgc,abs);
+			// XXX cant we do it non-recursively?
+			return pi(-1*i,sx+(abs?8:1),sy,fgc,bgc,abs)+1;
 		}
 
 		//int len=(int)(log10(i)+1);
-		int len=1,j=1;while(i>j)len++,j*=10;
+		int len=1,j=1;while(i>=j)len++,j*=10;
 
 		char s[len+1];
 		sprintf(s,"%i",i);
-		ps(s,sx,sy,fgc,bgc);
-		return len;
+		ps(s,sx,sy,fgc,bgc,abs);
+		return len-1;
 	}
 
-	int pis(int i,int sx,int sy,color fgc=0xfff,color bgc=0){
+	int pis(int i,int sx,int sy,_color fgc=0xfff,_color bgc=0){
 		// haha piss
 		static unsigned char mininum[]=
 			{0x99,0xf0,0xbd,0xf9,0xe3,0xdb,0xdf,0xf1,0xff,0xfb,0x44};
@@ -228,9 +230,8 @@ struct Framework{
 			}return pis(-i,sx+3,sy,fgc,bgc)+1;
 		}
 
-		//int len=(int)(log10(i)+1);
-		int len=1,j=1;while(i>j)len++,j*=10;
-		if(len<0)len=1; // for 0
+		int len=0,j=1;while(i>=j)len++,j*=10;
+		if(len<1)len=1; // for 0
 		for(int j=len;j--;i/=10)
 			for(int x=0;x<4;x++){
 				p((mininum[i%10]>>x)&0x01?fgc:bgc,sx+0+j*3,sy+x);
@@ -240,7 +241,7 @@ struct Framework{
 		return len;
 	}
 
-	void pi(color*img,int cx,int cy,int sx,int sy){ // blip a whole image
+	void pi(_color*img,int cx,int cy,int sx,int sy){ // blip a whole image
 		// dont iterate at all if image is out of bounds
 		if(cx>_sx||cy>_sy||cx+sx<0||cy+sy<0)return;
 		// XXX optimise to only iterate over visible part of image
@@ -254,7 +255,7 @@ struct Framework{
 
 	// the following are utility and not necessary, remove for the 1173 version
 
-	void line(color c,int ax,int ay,int bx,int by){
+	void line(_color c,int ax,int ay,int bx,int by){ // XXX rename to l()?
 		int // adapted from wikipedia/bresenham
 			dx =  abs(bx-ax), sx = ax<bx?1:-1,
 			dy = -abs(by-ay), sy = ay<by?1:-1,
@@ -267,6 +268,26 @@ struct Framework{
 		}
 	}
 
+	void circ(_color c,int cx,int cy,int s){ // jesko's alg
+		int t1=s/16,t2=0,x=s,y=0;
+		while(x>=y){
+			p(c,cx+x,cy+y); p(c,cx+y,cy+x);
+			p(c,cx+x,cy-y); p(c,cx+y,cy-x);
+			p(c,cx-x,cy+y); p(c,cx-y,cy+x);
+			p(c,cx-x,cy-y); p(c,cx-y,cy-x);
+			y++;t1+=y;t2=t1-x;if(t2>=0){t1=t2;x--;}
+		}
+	}
+
+	void circf(_color c,int cx,int cy,int s){ // filled in
+		int t1=s/16,t2=0,x=s,y=0;
+		while(x>=y){
+			for(int t=-x;t<x;t++)p(c,cx+t,cy-y),p(c,cx+t,cy+y);
+			for(int t=-y;t<y;t++)p(c,cx+t,cy-x),p(c,cx+t,cy+x);
+			y++;t1+=y;t2=t1-x;if(t2>=0){t1=t2;x--;}
+		}
+	}
+
 	void pi(img a,int cx,int cy){pi(a.data,cx,cy,a.sx,a.sy);}
 
 	/* XXX not sure if i like defining start+offset instead of start+end...
@@ -275,13 +296,13 @@ struct Framework{
 	b3
 	c0 c1    d9 */
 
-	void phl(int sx,int y,int ex,color fgc=0xfff,color bgc=0){
+	void phl(int sx,int y,int ex,_color fgc=0xfff,_color bgc=0){
 		for(int x=sx;x<sx+ex;x++)pc(0xc4,x,y,fgc,bgc);}
 
-	void pvl(int x,int sy,int ey,color fgc=0xfff,color bgc=0){
+	void pvl(int x,int sy,int ey,_color fgc=0xfff,_color bgc=0){
 		for(int y=sy;y<sy+ey;y++)pc(0xb3,x,y,fgc,bgc);}
 
-	void pbox(int sx,int sy,int ex=1,int ey=1,color fgc=0xfff,color bgc=0){
+	void pbox(int sx,int sy,int ex=1,int ey=1,_color fgc=0xfff,_color bgc=0){
 		pc(0xda,sx -1,sy -1,fgc,bgc),
 		pc(0xbf,sx+ex,sy -1,fgc,bgc),
 		pc(0xc0,sx -1,sy+ey,fgc,bgc),
